@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<parser xmlns="http://www.whut.mc.com/parser">
+    <head>
+        <appId>1</appId>
+        <trentId>1</trentId>
+        <frmId>1</frmId>
+        <encrypt>1</encrypt>
+        <totalLen>10</totalLen>
+        <cs>13</cs>
+    </head>
+    <resolver name="lanyan" type="native" regx="^68.*16" class="org.whut.mc.server.test.LanyanResolver"/>
+</parser>
