@@ -1,0 +1,10 @@
+LanyanOpenDevice:
+{
+    begin : byte : 0 : [code_gen_byte] : [byte_gen_byte];
+    cmd : byte : 1 : [code_gen_byte] : [byte_gen_byte];
+    len : byte : 2 : [code_gen_byte] : [byte_gen_byte];
+    bbh[13] : byte : 3 : [code_gen_byte_bbh] : [byte_gen_byte_bbh];
+    frmId : byte : 16 : [code_gen_byte] : [byte_gen_byte];
+    cs : byte : 17 : [code_gen_byte] : [byte_gen_byte];
+    end : byte : 18 : [code_gen_byte] : [byte_gen_byte];
+}

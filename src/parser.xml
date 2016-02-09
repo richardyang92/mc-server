@@ -8,5 +8,5 @@
         <totalLen>10</totalLen>
         <cs>13</cs>
     </head>
-    <resolver name="lanyan" type="native" regx="^68.*16" class="org.whut.mc.server.test.LanyanResolver"/>
+    <resolver name="lanyan" regx="^68.*16" class="org.whut.mc.server.core.util.LanyanOpenDevice"/>
 </parser>

@@ -66,8 +66,12 @@
 
 	#include <stdio.h>
 	#include "frame.h"
+	#include "resolve.h"
 
-#line 71 "frame.tab.c" /* yacc.c:339  */
+	FRM* frm_global;
+	char* frame_name;
+
+#line 75 "frame.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -122,7 +126,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 6 "frame.y" /* yacc.c:355  */
+#line 10 "frame.y" /* yacc.c:355  */
 
 	int iVal;
 	char iChr;
@@ -132,7 +136,7 @@ union YYSTYPE
 	FLD* fld;
 	FRM* frm;
 
-#line 136 "frame.tab.c" /* yacc.c:355  */
+#line 140 "frame.tab.c" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -147,7 +151,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 151 "frame.tab.c" /* yacc.c:358  */
+#line 155 "frame.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -389,16 +393,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   23
+#define YYLAST   34
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  15
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  7
+#define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  12
+#define YYNRULES  13
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  26
+#define YYNSTATES  33
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -445,8 +449,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    41,    48,    56,    66,    72,    81,    87,
-      91,    95,   101
+       0,    34,    34,    45,    52,    60,    70,    76,    85,    91,
+      95,    99,   105,   111
 };
 #endif
 
@@ -457,7 +461,7 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NUM", "CHR", "VAR", "INT_DECL",
   "CHR_DECL", "BYTE_DECL", "SPL", "BBP", "EBP", "BMP", "EMP", "EOL",
-  "$accept", "frame", "fields", "field", "head", "type", "name", YY_NULLPTR
+  "$accept", "frame", "fields", "field", "head", "type", "name", "method", YY_NULLPTR
 };
 #endif
 
@@ -487,7 +491,8 @@ static const yytype_int8 yypact[] =
 {
       -4,    -6,     2,     0,    -1,    -6,    -4,    -6,    13,    -5,
       -6,     7,     4,    -6,    -6,    -6,    -3,    -6,    -6,    -6,
-       9,    10,    17,    -6,     8,    -6
+       9,    10,    17,    -6,    12,    11,    19,    16,    14,    11,
+      -6,     8,    -6
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -497,19 +502,20 @@ static const yytype_uint8 yydefact[] =
 {
        0,    12,     0,     0,     0,     1,     0,     7,     0,     0,
        3,     0,     0,     2,     5,     4,     0,     9,    10,    11,
-       0,     0,     0,     8,     0,     6
+       0,     0,     0,     8,     0,     0,     0,     0,     0,     0,
+      13,     0,     6
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -6,    12,    -6,    14,     3,    -6,    -6
+      -6,    20,    -6,    21,     3,    -6,    -6,     5
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     9,    10,     3,    20,     4
+      -1,     2,     9,    10,     3,    20,     4,    27
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -519,14 +525,16 @@ static const yytype_uint8 yytable[] =
 {
        1,     1,     5,    17,    18,    19,    13,     6,     7,    11,
        6,     8,    16,    17,    18,    19,    12,    21,    22,    23,
-      24,    14,    25,    15
+      24,    25,    32,    26,    28,    29,     0,    30,     0,    14,
+      15,     0,     0,     0,    31
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
        5,     5,     0,     6,     7,     8,    11,    10,     9,     6,
       10,    12,     9,     6,     7,     8,     3,    13,     9,     9,
-       3,     9,    14,     9
+       3,     9,    14,    12,     5,     9,    -1,    13,    -1,     9,
+       9,    -1,    -1,    -1,    29
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -535,21 +543,22 @@ static const yytype_uint8 yystos[] =
 {
        0,     5,    16,    19,    21,     0,    10,     9,    12,    17,
       18,    19,     3,    11,    16,    18,    19,     6,     7,     8,
-      20,    13,     9,     9,     3,    14
+      20,    13,     9,     9,     3,     9,    12,    22,     5,     9,
+      13,    22,    14
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
        0,    15,    16,    17,    17,    17,    18,    19,    19,    20,
-      20,    20,    21
+      20,    20,    21,    22
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     4,     1,     2,     2,     5,     2,     5,     1,
-       1,     1,     1
+       0,     2,     4,     1,     2,     2,     9,     2,     5,     1,
+       1,     1,     1,     3
 };
 
 
@@ -1226,32 +1235,31 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 30 "frame.y" /* yacc.c:1646  */
+#line 35 "frame.y" /* yacc.c:1646  */
     {
 		(yyval.frm) = (yyvsp[-1].frm);
-		printf("frame start:\n");
-		show_fld_frm((yyval.frm));
-		//show_child_frm($$);
-		printf("frame end.\n");
-		create_frame_type_h((yyval.frm), frame_name);
-		create_frame_type_c((yyval.frm), frame_name);
+		(yyval.frm)->name = (yyvsp[-3].head)->name;
+		frm_global = (yyval.frm);
+		/*printf("frame start:\n");
+		show_fld_frm($$);
+		printf("frame end.\n");*/
 	}
-#line 1240 "frame.tab.c" /* yacc.c:1646  */
+#line 1248 "frame.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 42 "frame.y" /* yacc.c:1646  */
+#line 46 "frame.y" /* yacc.c:1646  */
     {
 		(yyval.frm) = init_frm_by_fld((yyvsp[0].fld));
 		/*printf("fields 1 start:\n");
 		show_fld_frm($$);
 		printf("fields 1 end.\n");*/
 	}
-#line 1251 "frame.tab.c" /* yacc.c:1646  */
+#line 1259 "frame.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 49 "frame.y" /* yacc.c:1646  */
+#line 53 "frame.y" /* yacc.c:1646  */
     {
 		add_fld2frm((yyvsp[-1].frm), (yyvsp[0].fld));
 		(yyval.frm) = (yyvsp[-1].frm);
@@ -1259,11 +1267,11 @@ yyreduce:
 		show_fld_frm($$);
 		printf("fields 2 end.\n");*/
 	}
-#line 1263 "frame.tab.c" /* yacc.c:1646  */
+#line 1271 "frame.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 57 "frame.y" /* yacc.c:1646  */
+#line 61 "frame.y" /* yacc.c:1646  */
     {
 		add_child2frm((yyvsp[-1].frm), (yyvsp[0].frm));
 		(yyval.frm) = (yyvsp[-1].frm);
@@ -1271,72 +1279,80 @@ yyreduce:
 		show_child_frm($$);
 		printf("fields 3 end.\n");*/
 	}
-#line 1275 "frame.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 6:
-#line 67 "frame.y" /* yacc.c:1646  */
-    {
-		(yyval.fld) = init_fld((yyvsp[-4].head), get_type_name((yyvsp[-3].idt)), (yyvsp[-1].iVal));
-	}
 #line 1283 "frame.tab.c" /* yacc.c:1646  */
     break;
 
+  case 6:
+#line 71 "frame.y" /* yacc.c:1646  */
+    {
+		(yyval.fld) = init_fld((yyvsp[-8].head), get_type_name((yyvsp[-7].idt)), (yyvsp[-5].iVal), (yyvsp[-3].str), (yyvsp[-1].str));
+	}
+#line 1291 "frame.tab.c" /* yacc.c:1646  */
+    break;
+
   case 7:
-#line 73 "frame.y" /* yacc.c:1646  */
+#line 77 "frame.y" /* yacc.c:1646  */
     {
 		if (frame_name == NULL)
 		{
 			frame_name = (yyvsp[-1].str);
-			printf("frame_name: %s\n", frame_name);
+			//printf("frame_name: %s\n", frame_name);
 		}
 		(yyval.head) = init_head((yyvsp[-1].str), 1);
-	}
-#line 1296 "frame.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 8:
-#line 82 "frame.y" /* yacc.c:1646  */
-    {
-		(yyval.head) = init_head((yyvsp[-4].str), (yyvsp[-2].iVal));
 	}
 #line 1304 "frame.tab.c" /* yacc.c:1646  */
     break;
 
-  case 9:
-#line 88 "frame.y" /* yacc.c:1646  */
+  case 8:
+#line 86 "frame.y" /* yacc.c:1646  */
     {
-		(yyval.idt) = (yyvsp[0].idt); 
+		(yyval.head) = init_head((yyvsp[-4].str), (yyvsp[-2].iVal));
 	}
 #line 1312 "frame.tab.c" /* yacc.c:1646  */
     break;
 
-  case 10:
+  case 9:
 #line 92 "frame.y" /* yacc.c:1646  */
     {
-		(yyval.idt) = (yyvsp[0].idt);
+		(yyval.idt) = (yyvsp[0].idt); 
 	}
 #line 1320 "frame.tab.c" /* yacc.c:1646  */
     break;
 
-  case 11:
+  case 10:
 #line 96 "frame.y" /* yacc.c:1646  */
     {
-    		(yyval.idt) = (yyvsp[0].idt);
-    	}
+		(yyval.idt) = (yyvsp[0].idt);
+	}
 #line 1328 "frame.tab.c" /* yacc.c:1646  */
     break;
 
-  case 12:
-#line 102 "frame.y" /* yacc.c:1646  */
+  case 11:
+#line 100 "frame.y" /* yacc.c:1646  */
     {
-		(yyval.str) = (yyvsp[0].str); 
-	}
+    		(yyval.idt) = (yyvsp[0].idt);
+    	}
 #line 1336 "frame.tab.c" /* yacc.c:1646  */
     break;
 
+  case 12:
+#line 106 "frame.y" /* yacc.c:1646  */
+    {
+		(yyval.str) = (yyvsp[0].str); 
+	}
+#line 1344 "frame.tab.c" /* yacc.c:1646  */
+    break;
 
-#line 1340 "frame.tab.c" /* yacc.c:1646  */
+  case 13:
+#line 112 "frame.y" /* yacc.c:1646  */
+    {
+		(yyval.str) = (yyvsp[-1].str);
+	}
+#line 1352 "frame.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1356 "frame.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1564,12 +1580,14 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 106 "frame.y" /* yacc.c:1906  */
+#line 115 "frame.y" /* yacc.c:1906  */
 
 
 main(int argc, char **argv)
 {
 	yyparse();
+	show_fld_frm(frm_global);
+    codec(frm_global);
 }
 
 yyerror(char *s)

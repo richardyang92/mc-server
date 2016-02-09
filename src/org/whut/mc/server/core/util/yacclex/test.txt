@@ -1,6 +1,0 @@
-time_sync_frame:
-{
-	frame_len : int : 0;
-	time[8] : char : 4;
-	time_in_ms : int : 12;
-}

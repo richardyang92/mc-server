@@ -6,7 +6,7 @@ import org.whut.mc.server.core.log.Log;
 /**
  * Created by yangyang on 2016/1/18.
  */
-public abstract class ResolverBase implements Resolver {
+public abstract class CodecBase implements Codec {
     private static Log log;
 
     private JSONObject jsonObject;
@@ -16,6 +16,6 @@ public abstract class ResolverBase implements Resolver {
     }
 
     static {
-        log = Log.getLogger(ResolverBase.class);
+        log = Log.getLogger(CodecBase.class);
     }
 }

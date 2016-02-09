@@ -13,21 +13,21 @@ public class TestClient {
     private static Log log = Log.getLogger(TestClient.class);
 
     public static void main(String[] args) throws InterruptedException {
-        byte[] arr = {104,1,14,1,2,22};
-        byte[] b = null;
+        byte arr[] = {0x68,0x01,0x0e,0x01,0x01,0x01,0x01,0x01,0x03,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x0f,0x13,0x16};
+        /*byte[] b = null;
         for (byte i : arr) {
             byte[] bt = new byte[1];
             bt[0] = i;
             b = CodecUtil.merge(b, bt);
         }
         String s = CodecUtil.getHex(b);
-        System.out.println(s);
+        System.out.println(s);*/
         Socket client = null;
         try {
             client = new Socket("127.0.0.1", 9988);
             OutputStream os = client.getOutputStream();
             BufferedOutputStream bfs = new BufferedOutputStream(os);
-            bfs.write(b);
+            bfs.write(arr);
             bfs.flush();
 
             InputStream is = client.getInputStream();

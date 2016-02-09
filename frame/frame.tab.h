@@ -65,7 +65,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 6 "frame.y" /* yacc.c:1909  */
+#line 10 "frame.y" /* yacc.c:1909  */
 
 	int iVal;
 	char iChr;

@@ -26,7 +26,7 @@
 ";"					{return EOL;}
 [0-9]+ 				{yylval.iVal = atoi(yytext); return NUM;}
 [a-z]				{yylval.iChr = yytext[0]; return CHR;}
-[a-z][A-Za-z_0-9]+ 	{
+[a-zA-Z][A-Za-z_0-9]+ 	{
 						yylval.str = get_var(yytext);
 						return VAR;
 					}

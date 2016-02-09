@@ -58,7 +58,6 @@ public class ParserConfig extends XMLConfig {
                 Attribute regx = getAttribute(node, Key.REGX.getKey());
                 Attribute clazz = getAttribute(node, Key.CLASS.getKey());
                 JSONObject object = new JSONObject();
-                object.put(Key.TYPE.getKey(), type.getValue());
                 object.put(Key.REGX.getKey(), regx.getValue());
                 object.put(Key.CLASS.getKey(), clazz.getValue());
                 regMap.put(name.getValue(), object);

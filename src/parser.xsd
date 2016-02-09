@@ -32,7 +32,6 @@
         <xs:complexContent>
             <xs:extension base="xs:string">
                 <xs:attribute name="name" type="xs:string"/>
-                <xs:attribute name="type" type="xs:string"/>
                 <xs:attribute name="regx" type="xs:string"/>
                 <xs:attribute name="class" type="xs:string"/>
             </xs:extension>

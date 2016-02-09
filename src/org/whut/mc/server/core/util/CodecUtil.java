@@ -63,8 +63,26 @@ public class CodecUtil {
         return subStr.getBytes(CHARACTER_SET);
     }
 
+    public static byte[] stringNum2Bytes(String str, int start, int end) throws UnsupportedEncodingException {
+        byte[] bt = new byte[0];
+        for (int i = start; i < end; i++) {
+            Character c = str.charAt(i);
+            byte t = (byte) (c - '0');
+            byte[] tmp = {t};
+            bt = CodecUtil.merge(bt, tmp);
+        }
+        return bt;
+    }
+
     public static String bytes2String(byte[] bytes) throws UnsupportedEncodingException {
-        return new String(bytes,"UTF-8");
+        String str1="";
+        StringBuilder sb=new StringBuilder(str1);
+        for (byte element: bytes )
+        {
+            sb.append(String.valueOf(element));
+        }
+        str1=sb.toString();
+        return str1;
     }
 
     public static byte[] object2Bytes(Object obj) {
@@ -195,5 +213,10 @@ public class CodecUtil {
             }
         }
         return true;
+    }
+
+    public static String getByteStr(byte[] a, int offset) {
+        byte tmp =  a[offset];
+        return Byte.toString(tmp);
     }
 }

@@ -1,6 +1,10 @@
 %{
 	#include <stdio.h>
 	#include "frame.h"
+	#include "resolve.h"
+
+	FRM* frm_global;
+	char* frame_name;
 %}
 
 %union {
@@ -20,6 +24,7 @@
 %token SPL BBP EBP BMP EMP EOL
 %type <idt>type
 %type <str>name
+%type <str>method
 %type <head>head
 %type <fld>field
 %type <frm>frame
@@ -29,12 +34,11 @@ frame:
 	head BBP fields EBP
 	{
 		$$ = $3;
-		printf("frame start:\n");
+		$$->name = $1->name;
+		frm_global = $$;
+		/*printf("frame start:\n");
 		show_fld_frm($$);
-		//show_child_frm($$);
-		printf("frame end.\n");
-		create_frame_type_h($$, frame_name);
-		create_frame_type_c($$, frame_name);
+		printf("frame end.\n");*/
 	}
 	;
 fields:
@@ -63,9 +67,9 @@ fields:
 	}
 	;
 field:
-	head type SPL NUM EOL
+	head type SPL NUM SPL method SPL method EOL
 	{
-		$$ = init_fld($1, get_type_name($2), $4);
+		$$ = init_fld($1, get_type_name($2), $4, $6, $8);
 	}
 	;
 head:
@@ -74,7 +78,7 @@ head:
 		if (frame_name == NULL)
 		{
 			frame_name = $1;
-			printf("frame_name: %s\n", frame_name);
+			//printf("frame_name: %s\n", frame_name);
 		}
 		$$ = init_head($1, 1);
 	}
@@ -103,11 +107,18 @@ type:
 		$$ = $1; 
 	}
 	;
+	method:
+	BMP VAR EMP
+	{
+		$$ = $2;
+	}
 %%
 
 main(int argc, char **argv)
 {
 	yyparse();
+	show_fld_frm(frm_global);
+    codec(frm_global);
 }
 
 yyerror(char *s)

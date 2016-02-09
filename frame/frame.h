@@ -1,8 +1,6 @@
 #pragma once
-#ifndef TIME_FRAME_H
-#define TIME_FRAME_H
-
-static char* frame_name;
+#ifndef FRAME_H
+#define FRAME_H
 
 typedef enum INDENTITY
 {
@@ -23,6 +21,8 @@ typedef struct FIELD
 	char* name;
 	char* type;
 	int offset;
+	char* method;
+	char* gen;
 } FLD;
 
 typedef struct FLD_FRM
@@ -33,6 +33,7 @@ typedef struct FLD_FRM
 
 typedef struct FRAME
 {
+    char* name;
 	FLD_FRM* fld_frm;
 	int fld_size;
 	struct FRAME* child;
@@ -47,7 +48,7 @@ IDT get_BYTEDECL();
 
 HEAD* init_head(char* name, int size);
 
-FLD* init_fld(HEAD* head, char* type, int num);
+FLD* init_fld(HEAD* head, char* type, int num, char* method, char* gen);
 
 FRM* init_frm_by_fld(FLD* fld);
 
