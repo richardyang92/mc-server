@@ -1,6 +1,6 @@
 package org.whut.mc.server.test;
 
-import org.whut.mc.server.core.communication.MasterServer;
+import org.whut.mc.server.cluster.master.Master;
 import org.whut.mc.server.core.config.PropConfig;
 
 /**
@@ -11,7 +11,7 @@ public class MasterServerTest {
         int port = Integer.parseInt(PropConfig.getPropConfig().get("server.master.port").toString());
         String configPath = System.getProperty("user.dir") +
                 PropConfig.getPropConfig().get("server.config").toString();
-        MasterServer server = new MasterServer(port, configPath);
+        Master server = new Master(port, configPath);
         Thread thread = new Thread(server);
         thread.start();
     }

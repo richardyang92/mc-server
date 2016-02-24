@@ -15,12 +15,9 @@ import java.util.*;
 public class ParserConfig extends XMLConfig {
     private static Log log;
     private Map<String, JSONObject> regMap;
-    private Head head;
 
     {
         regMap = new HashMap<String, JSONObject>();
-        head = new Head();
-        head.setStatus(false);
     }
 
     static {
@@ -37,10 +34,6 @@ public class ParserConfig extends XMLConfig {
         resolveParserXML();
     }
 
-    public Head getHead() {
-        return head;
-    }
-
     private void resolveParserXML() {
         Element frames = getRoot();
 
@@ -49,10 +42,7 @@ public class ParserConfig extends XMLConfig {
         while (i.hasNext()) {
             Element node = (Element) i.next();
 
-            if (node.getName().equals(Key.HEAD.getKey())) {
-                head.setStatus(true);
-                resolveHeadElement(node);
-            } else if (node.getName().equals(Key.RESOLVER.getKey())) {
+            if (node.getName().equals(Key.RESOLVER.getKey())) {
                 Attribute name = getAttribute(node, Key.NAME.getKey());
                 Attribute type = getAttribute(node, Key.TYPE.getKey());
                 Attribute regx = getAttribute(node, Key.REGX.getKey());
@@ -65,58 +55,9 @@ public class ParserConfig extends XMLConfig {
         }
     }
 
-    private void resolveHeadElement(Element headElement) {
-        Iterator i = headElement.elementIterator();
-
-        while (i.hasNext()) {
-            Element node = (Element) i.next();
-            String name = node.getName();
-            String value = node.getStringValue();
-            switch (name) {
-                case Head.APPID :
-                    head.setAppId(Byte.parseByte(value));
-                    break;
-                case Head.TRENTID :
-                    head.setTrentId(Byte.parseByte(value));
-                    break;
-                case Head.FRMID :
-                    head.setFrmId(Integer.parseInt(value));
-                    break;
-                case Head.ENCRYPT :
-                    head.setEncrypt(Byte.parseByte(value));
-                    break;
-                case Head.TOTALLEN :
-                    head.setTotalLen(Byte.parseByte(value));
-                    break;
-                case Head.CS :
-                    head.setCs(Byte.parseByte(value));
-                    break;
-            }
-        }
-    }
-
     @Override
     public Object get(String key) {
-        if (head.isStatus()) {
-            switch (key) {
-                case Head.APPID :
-                    return head.getAppId();
-                case Head.TRENTID :
-                    return head.getTrentId();
-                case Head.FRMID :
-                    return head.getFrmId();
-                case Head.ENCRYPT :
-                    return head.getEncrypt();
-                case Head.TOTALLEN :
-                    return head.getTotalLen();
-                case Head.CS :
-                    return head.getCs();
-                default:
-                    return getObjFromRegMap(key);
-            }
-        } else {
-            return getObjFromRegMap(key);
-        }
+        return getObjFromRegMap(key);
     }
 
     private Object getObjFromRegMap(String key) {
@@ -143,6 +84,5 @@ public class ParserConfig extends XMLConfig {
         Config config = new ParserConfig(System.getProperty("user.dir") + "/src/parser.xml");
         JSONObject object = (JSONObject) config.get("lanyan");
         System.out.println(object.get("class"));
-        System.out.println(config.get("appId"));
     }
 }

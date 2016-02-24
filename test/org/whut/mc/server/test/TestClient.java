@@ -2,6 +2,7 @@ package org.whut.mc.server.test;
 
 import org.whut.mc.server.core.log.Log;
 import org.whut.mc.server.core.util.CodecUtil;
+import org.whut.mc.server.core.util.Frame;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,7 +14,9 @@ public class TestClient {
     private static Log log = Log.getLogger(TestClient.class);
 
     public static void main(String[] args) throws InterruptedException {
-        byte arr[] = {0x68,0x01,0x0e,0x01,0x01,0x01,0x01,0x01,0x03,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x0f,0x13,0x16};
+        //byte arr[] = {0x68,0x01,0x0e,0x01,0x01,0x01,0x01,0x01,0x03,0x01,0x01,0x01,0x01,0x01,0x01,0x01,0x0f,0x13,0x16};
+        //byte arr[] = Frame.HEART_BEAT;
+        byte arr[] = Frame.LANYAN_OPEN;
         /*byte[] b = null;
         for (byte i : arr) {
             byte[] bt = new byte[1];
@@ -30,28 +33,28 @@ public class TestClient {
             bfs.write(arr);
             bfs.flush();
 
-            InputStream is = client.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-
-            int i = 0;
-            while (true) {
-                byte[] result = new byte[0];
-                while (true) {
-                    byte[] tmp = new byte[1];
-                    bis.read(tmp, 0, 1);
-                    result = CodecUtil.merge(result, tmp);
-                    if (bis.available() == 0) {
-                        i++;
-                        break;
-                    }
-
-                }
-                CodecUtil.showMsg(result);
-                if (i == 10) {
-                    break;
-                }
-                Thread.sleep(1000);
-            }
+//            InputStream is = client.getInputStream();
+//            BufferedInputStream bis = new BufferedInputStream(is);
+//
+//            int i = 0;
+//            while (true) {
+//                byte[] result = new byte[0];
+//                while (true) {
+//                    byte[] tmp = new byte[1];
+//                    bis.read(tmp, 0, 1);
+//                    result = CodecUtil.merge(result, tmp);
+//                    if (bis.available() == 0) {
+//                        i++;
+//                        break;
+//                    }
+//
+//                }
+//                CodecUtil.showMsg(result);
+//                if (i == 10) {
+//                    break;
+//                }
+//                Thread.sleep(1000);
+//            }
 
         } catch (IOException e) {
             log.error("IOException : {}", e.getMessage());

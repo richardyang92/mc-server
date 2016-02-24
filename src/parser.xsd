@@ -6,23 +6,7 @@
         <xs:complexContent>
             <xs:extension base="xs:string">
                 <xs:sequence>
-                    <xs:element name="head" type="head" minOccurs="1" maxOccurs="1"/>
                     <xs:element name="resolver" type="resolver" minOccurs="1" maxOccurs="unbounded"/>
-                </xs:sequence>
-            </xs:extension>
-        </xs:complexContent>
-    </xs:complexType>
-
-    <xs:complexType name="head">
-        <xs:complexContent>
-            <xs:extension base="xs:string">
-                <xs:sequence>
-                    <xs:element name="appId" type="xs:int" minOccurs="1" maxOccurs="1"/>
-                    <xs:element name="trentId" type="xs:int" minOccurs="1" maxOccurs="1"/>
-                    <xs:element name="frmId" type="xs:int" minOccurs="1" maxOccurs="1"/>
-                    <xs:element name="encrypt" type="xs:string" minOccurs="1" maxOccurs="1"/>
-                    <xs:element name="totalLen" type="xs:int" minOccurs="1" maxOccurs="1"/>
-                    <xs:element name="cs" type="xs:int" minOccurs="1" maxOccurs="1"/>
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>

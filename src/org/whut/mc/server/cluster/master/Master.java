@@ -1,6 +1,7 @@
-package org.whut.mc.server.core.communication;
+package org.whut.mc.server.cluster.master;
 
-import org.whut.mc.server.core.config.PropConfig;
+import org.whut.mc.server.core.communication.Commend;
+import org.whut.mc.server.core.communication.Server;
 import org.whut.mc.server.core.log.Log;
 
 import java.util.Scanner;
@@ -8,16 +9,16 @@ import java.util.Scanner;
 /**
  * Created by yangyang on 16-1-27.
  */
-public class MasterServer implements Server, Runnable {
+public class Master implements Server, Runnable {
     private static Log log;
-    private ICommendThread cmdThread;
+    private MasterCommend cmdThread;
 
-    public MasterServer(int port, String configPath) {
-        cmdThread = new ICommendThread(port, configPath, true);
+    public Master(int port, String configPath) {
+        cmdThread = new MasterCommend(port, configPath, true);
     }
 
     static {
-        log = Log.getLogger(MasterServer.class);
+        log = Log.getLogger(Master.class);
     }
 
     @Override

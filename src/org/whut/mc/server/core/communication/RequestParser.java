@@ -36,14 +36,7 @@ public class RequestParser implements Parser {
 
             if (matcher.matches()) {
                 Request request = new Request();
-                byte[] data = new byte[0];
-                if (config.getHead().isStatus()) {
-                    request.generateHeadFromConfig(config.getHead());
-                    data = msg;
-                } else {
-                    log.info("generate head from msg!");
-                }
-                request.setData(data);
+                request.setData(msg);
                 request.setResolver(resolver.getString("class"));
                 return request;
             }
